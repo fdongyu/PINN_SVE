@@ -206,6 +206,7 @@ if __name__ == "__main__":
     h_test = h_test.reshape([Nt_test, Nx])
     
     hours = np.arange(len(time_model[:Nt_test]))
+    x = x[::-1]  ## reverse the channel for plotting
     xx, tt = np.meshgrid(x.flatten(), hours)
 
     factor = 0.3048   # ft to m 
@@ -226,15 +227,15 @@ if __name__ == "__main__":
     levels = np.linspace(0, 5.4, 10)
     cs = axes[0].contourf(xx, tt, h_test[:Nt_test,:], cmap='rainbow', levels=levels, alpha = 0.8)
     axes[0].set_ylabel('Time (h)')
-    axes[0].set_xlabel('Distance downstream (m)')
+    axes[0].set_xlabel('Distance upstream (m)')
     axes[0].set_title('Reference')
 
     cs = axes[1].contourf(xx, tt, h_pred1[:Nt_test,:], cmap='rainbow', levels=levels, alpha = 0.8)
-    axes[1].set_xlabel('Distance downstream (m)')
+    axes[1].set_xlabel('Distance upstream (m)')
     axes[1].set_title('Prediction (standard)')
 
     cs = axes[2].contourf(xx, tt, h_pred2[:Nt_test,:], cmap='rainbow', levels=levels, alpha = 0.8)
-    axes[2].set_xlabel('Distance downstream (m)')
+    axes[2].set_xlabel('Distance upstream (m)')
     axes[2].set_title('Prediction (ff)')
     divider = make_axes_locatable(axes[2])
     cax = divider.append_axes("right", size="3%", pad=0.05)
@@ -266,7 +267,7 @@ if __name__ == "__main__":
         axes[k].set_ylim([0,5])
         axes[k].grid()
         if k in [2,3]:
-            axes[k].set_xlabel('Distance downstream (m)')
+            axes[k].set_xlabel('Distance upstream (m)')
         if k == 0:
             axes[k].legend(loc=3,prop={'size': 14})
 

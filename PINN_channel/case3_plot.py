@@ -214,6 +214,7 @@ if __name__ == "__main__":
     h_test = h_test.reshape([Nt_test, Nx])
     
     hours = np.arange(len(time_model[:Nt_test]))/4.
+    x = x[::-1]  ## reverse the channel for plotting
     xx, tt = np.meshgrid(x.flatten(), hours)
 
     factor = 0.3048   # ft to m 
@@ -251,13 +252,13 @@ if __name__ == "__main__":
     levels = np.linspace(0, 5, 9)
     cs = axes[1,0].contourf(xx, tt, h_test[:Nt_test,:], cmap='rainbow', levels=levels, alpha = 0.8)
     axes[1,0].set_ylabel('Time (h)')
-    axes[1,0].set_xlabel('Distance downstream (m)')
+    axes[1,0].set_xlabel('Distance upstream (m)')
 
     cs = axes[1,1].contourf(xx, tt, h_pred1[:Nt_test,:], cmap='rainbow', levels=levels, alpha = 0.8)
-    axes[1,1].set_xlabel('Distance downstream (m)')
+    axes[1,1].set_xlabel('Distance upstream (m)')
 
     cs = axes[1,2].contourf(xx, tt, h_pred2[:Nt_test,:], cmap='rainbow', levels=levels, alpha = 0.8)
-    axes[1,2].set_xlabel('Distance downstream (m)')
+    axes[1,2].set_xlabel('Distance upstream (m)')
     divider = make_axes_locatable(axes[1,2])
     cax = divider.append_axes("right", size="3%", pad=0.05)
     cb = fig.colorbar(cs, cax=cax, orientation='vertical')
@@ -294,8 +295,8 @@ if __name__ == "__main__":
         axes[k, 1].set_ylim([0,5])
         axes[k, 1].grid()
         if k == len(tlist) - 1:
-            axes[k, 0].set_xlabel('Distance downstream (m)')
-            axes[k, 1].set_xlabel('Distance downstream (m)')
+            axes[k, 0].set_xlabel('Distance upstream (m)')
+            axes[k, 1].set_xlabel('Distance upstream (m)')
         if k == 0:
             axes[k, 0].legend(loc=7,prop={'size': 12})
 
